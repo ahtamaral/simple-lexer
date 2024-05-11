@@ -5,12 +5,13 @@
 
 #define MOVE_BACK_ONE_CHARACTER fseek(fd, -1, SEEK_CUR)
 
+// Definição dos tipos de token
 enum tokenType {
-    KEYWORD,
-    IDENTIFIER,
-    CHARACTER,
+    PALAVRA_CHAVE,
+    IDENTIFICADOR,
+    CARACTERE,
     STRING,
-    SPECIAL_SYMBOL,
+    SIMBOLO_ESPECIAL,
     OPERADOR_ARITMETICO,
     OPERADOR_LOGICO,
     OPERADOR_RELACIONAL,
@@ -22,6 +23,7 @@ enum tokenType {
     TIPO_DE_DADO
 };
 
+// Array de strings para os tipos de token
 char strType[14][100] = {
     "PALAVRA_CHAVE",
     "IDENTIFICADOR",
@@ -39,6 +41,7 @@ char strType[14][100] = {
     "TIPO_DE_DADO"
 };
 
+// Array de palavras-chave para identificação de tipos de dados
 char darr[11][30] = {
     "char",
     "double",
@@ -60,6 +63,7 @@ typedef struct token {
 
 FILE *fd;
 
+// Função para pré-processamento do arquivo de entrada
 void preprocess(char *filename) {
     FILE *fa = fopen(filename, "r");
     if (!fa) {
@@ -69,14 +73,17 @@ void preprocess(char *filename) {
     fd = fa;
 }
 
+// Função para verificar se o caractere é um símbolo especial
 int isSpecialSymbol(int ca) {
     return (ca == '[' || ca == ']' || ca == '(' || ca == ')' || ca == '{' || ca == '}' || ca == ',' || ca == ';' || ca == ':' || ca == '?');
 }
 
+// Função para verificar se o caractere é um operador
 int isOperator(int ca) {
     return (ca == '=' || ca == '+' || ca == '-' || ca == '*' || ca == '/' || ca == '%' || ca == '<' || ca == '>' || ca == '!' || ca == '&' || ca == '|' || ca == '^' || ca == '~' || ca == '.');
 }
 
+// Função para obter o próximo token do arquivo
 token getNextToken() {
     char keywords[32][300] = { 
         "auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else", "enum", "extern", "float", "for", "goto", "if", "int", "long", "register", "return", "short", "signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while" 
@@ -135,7 +142,7 @@ token getNextToken() {
                 return var;
             }
             else {
-                var.type = SPECIAL_SYMBOL;
+                var.type = SIMBOLO_ESPECIAL;
                 if (ca == '=') {
                     var.type = OPERADOR_DE_ATRIBUICAO;
                 }
@@ -153,7 +160,7 @@ token getNextToken() {
             }
             var.lex[1] = ca;
             ca = getc(fd);
-            var.type = CHARACTER;
+            var.type = CARACTERE;
             return var;
         default:
             if (isdigit(ca)) {
@@ -172,10 +179,10 @@ token getNextToken() {
                     ca = getc(fd);
                 }
                 MOVE_BACK_ONE_CHARACTER;
-                var.type = IDENTIFIER;
+                var.type = IDENTIFICADOR;
                 for (int i = 0; i < 32; i++) {
                     if (strcmp(var.lex, keywords[i]) == 0) {
-                        var.type = KEYWORD;
+                        var.type = PALAVRA_CHAVE;
                         break;
                     }
                 }
@@ -257,14 +264,14 @@ token getNextToken() {
     }
 }
 
-// Função principal
+
 int main(int argc, char *argv[]) {
     if (argc != 2) {
         printf("Uso: %s <nome_do_arquivo>\n", argv[0]);
         return 1;
     }
 
-    // Pré-processamento do arquivo de entrada
+
     preprocess(argv[1]);
 
     token temp;
@@ -276,7 +283,7 @@ int main(int argc, char *argv[]) {
         printf("%s\t%s\n", strType[temp.type], temp.lex);
     }
 
-    // Fecha o arquivo de entrada
+
     fclose(fd);
 
     return 0;
