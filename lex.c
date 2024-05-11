@@ -1,3 +1,8 @@
+// Trabalho 01 Linguagens formais 2024.1
+
+// Artur Henrique Teixeira do Amaral
+// Tales Coutinho Moreira
+
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
