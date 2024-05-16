@@ -70,13 +70,6 @@ FILE *fd;
 
 // Função para pré-processamento do arquivo de entrada
 void preprocess(char *filename) {
-    // FILE *fa = fopen(filename, "r");
-    // if (!fa) {
-    //     printf("Erro ao abrir o arquivo\n");
-    //     exit(1);
-    // }
-
-    // fd = fa;
 
     fd = stdin;
     if (!fd) {
