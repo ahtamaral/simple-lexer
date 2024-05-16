@@ -70,12 +70,19 @@ FILE *fd;
 
 // Função para pré-processamento do arquivo de entrada
 void preprocess(char *filename) {
-    FILE *fa = fopen(filename, "r");
-    if (!fa) {
+    // FILE *fa = fopen(filename, "r");
+    // if (!fa) {
+    //     printf("Erro ao abrir o arquivo\n");
+    //     exit(1);
+    // }
+
+    // fd = fa;
+
+    fd = stdin;
+    if (!fd) {
         printf("Erro ao abrir o arquivo\n");
         exit(1);
     }
-    fd = fa;
 }
 
 // Função para verificar se o caractere é um símbolo especial
@@ -271,10 +278,11 @@ token getNextToken() {
 
 
 int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        printf("Uso: %s <nome_do_arquivo>\n", argv[0]);
-        return 1;
-    }
+    
+    // if (argc != 2) {
+    //     printf("Uso: %s <nome_do_arquivo>\n", argv[0]);
+    //     return 1;
+    // }
 
 
     preprocess(argv[1]);
