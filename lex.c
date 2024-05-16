@@ -127,8 +127,9 @@ token getNextToken() {
                 return var;
             }
             else if (ca == '*') {
-                j = 0;
                 var.type = COMENTARIO;
+                var.lex[0] = '/';
+                j = 1;
                 while (1) {
                     var.lex[j++] = ca;
                     while ((ca = getc(fd)) != '*') {
@@ -272,12 +273,6 @@ token getNextToken() {
 
 int main(int argc, char *argv[]) {
     
-    // if (argc != 2) {
-    //     printf("Uso: %s <nome_do_arquivo>\n", argv[0]);
-    //     return 1;
-    // }
-
-
     preprocess(argv[1]);
 
     token temp;
