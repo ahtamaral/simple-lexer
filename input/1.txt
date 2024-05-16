@@ -1,2 +1,8 @@
-var x = 10
-print(x+x)
+a=3 
+while(int b = a; b < 3*a; b++)
+{
+    print(b*a) /*Este eh o meu comentario*/
+} 
+
+if (a > 0){elsevier = 1}
+else { elsevier = -1}

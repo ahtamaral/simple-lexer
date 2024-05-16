@@ -12,5 +12,5 @@ gcc lex.c -o lex
 E rodá-lo indicando o arquivo que será analizado
 
 '''
-./lex < exemplo.c
+./lex < input/1.txt
 '''
